@@ -1,5 +1,7 @@
 import express from "express";
 import homeController from "../controller/homeController";
+import loginController from "../controller/loginController";
+
 
 const router = express.Router();
 
@@ -8,6 +10,8 @@ const router = express.Router();
  * @param {*} app : express app
  */
 const initWebRoutes = (app) => {
+
+    router.get('/login', loginController.getLoginPage)
     
     router.get('/', (req, res) => {
         res.send('Hello World');
