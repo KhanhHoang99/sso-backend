@@ -5,6 +5,7 @@ import initApiRoutes from "./routes/api";
 import configCors from "./config/cors";
 import bodyParser from "body-parser";
 import cookieParser from 'cookie-parser';
+import {configPassport} from "./controller/passpostController"
 
 
 require("dotenv").config();
@@ -28,6 +29,8 @@ configViewEngine(app);
 //init routes
 initWebRoutes(app);
 initApiRoutes(app);
+
+configPassport();
 
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
