@@ -2,7 +2,8 @@ import express from "express";
 import homeController from "../controller/homeController";
 import loginController from "../controller/loginController";
 import passport from 'passport';
-
+import checkUser from '../middleware/checkUser';
+import passpostController from "../controller/passpostController";
 
 const router = express.Router();
 
@@ -12,10 +13,10 @@ const router = express.Router();
  */
 const initWebRoutes = (app) => {
 
-    router.get('/login', loginController.getLoginPage)
+    router.get('/login',checkUser.isLogin, loginController.getLoginPage)
     
     router.get('/', (req, res) => {
-        res.send('Hello World');
+        res.render('helloWorld');
     })
 
     router.get('/about', (req, res) => {
@@ -32,8 +33,9 @@ const initWebRoutes = (app) => {
     router.post('/login', passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login'
-      }));
+    }));
 
+    router.post('/logout', passpostController.handleLogout);
 
     return app.use("/", router);
 
